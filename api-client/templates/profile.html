@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile - TaskFlow Pro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white mb-4">
+            <div class="d-flex align-items-center mb-4">
+                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3 fw-bold fs-3" style="width: 70px; height: 70px;">
+                    {{ (user.name[0] if user.name else 'U')|upper }}
+                </div>
+                <div>
+                    <h3 class="fw-bold text-dark mb-0">{{ user.name or 'User' }}</h3>
+                    <p class="text-muted small mb-0">{{ user.email or 'N/A' }}</p>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-sm-4">
+                    <div class="p-3 bg-light rounded-3 text-center">
+                        <span class="text-muted small d-block">Total Tasks</span>
+                        <span class="fs-4 fw-bold text-dark">{{ user.total_tasks if user.total_tasks is defined else '-' }}</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="p-3 bg-light rounded-3 text-center">
+                        <span class="text-muted small d-block">Completed</span>
+                        <span class="fs-4 fw-bold text-success">{{ user.completed_tasks if user.completed_tasks is defined else '-' }}</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="p-3 bg-light rounded-3 text-center">
+                        <span class="text-muted small d-block">Pending</span>
+                        <span class="fs-4 fw-bold text-warning-emphasis">{{ user.pending_tasks if user.pending_tasks is defined else '-' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-top pt-3">
+                <h6 class="fw-bold text-secondary mb-3">Account Details</h6>
+                <dl class="row mb-0 small">
+                    <dt class="col-sm-4 text-muted">User ID:</dt>
+                    <dd class="col-sm-8"><code>#{{ user.id or 'N/A' }}</code></dd>
+
+                    <dt class="col-sm-4 text-muted">Email:</dt>
+                    <dd class="col-sm-8">{{ user.email or 'N/A' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Member Since:</dt>
+                    <dd class="col-sm-8">{{ user.created_at[:10] if user.created_at else 'N/A' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Auth Mechanism:</dt>
+                    <dd class="col-sm-8"><span class="badge bg-success-subtle text-success border border-success-subtle">Stateless JWT Bearer Token</span></dd>
+                </dl>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center border-top pt-4 mt-4">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary rounded-3">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+                </a>
+                <a href="{{ url_for('logout') }}" class="btn btn-outline-danger rounded-3">
+                    <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account - TaskFlow Pro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center my-auto py-4">
+    <div class="col-md-6 col-lg-5">
+        <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+            <div class="text-center mb-4">
+                <div class="bg-success-subtle text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-person-plus fs-2"></i>
+                </div>
+                <h3 class="fw-bold text-dark mb-1">Create an Account</h3>
+                <p class="text-muted small">Get your isolated personal workspace</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="mb-3">
+                    <label for="name" class="form-label fw-semibold text-secondary small">Full Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control border-start-0 ps-0" id="name" name="name" value="{{ name or '' }}" placeholder="Jane Doe" required autofocus>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold text-secondary small">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control border-start-0 ps-0" id="email" name="email" value="{{ email or '' }}" placeholder="jane@example.com" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-semibold text-secondary small">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" placeholder="At least 6 characters" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="confirm_password" class="form-label fw-semibold text-secondary small">Confirm Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-lock-fill"></i></span>
+                        <input type="password" class="form-control border-start-0 ps-0" id="confirm_password" name="confirm_password" placeholder="Re-enter password" required>
+                    </div>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-success btn-lg rounded-3 fw-semibold text-white py-2">
+                        <i class="bi bi-check2-circle me-2"></i>Create My Account
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center border-top pt-3 mt-2">
+                <span class="text-muted small">Already have an account?</span>
+                <a href="{{ url_for('login') }}" class="fw-semibold text-decoration-none ms-1">Sign in</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

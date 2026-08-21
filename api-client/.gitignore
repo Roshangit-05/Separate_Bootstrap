@@ -1,0 +1,17 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Environment variables & secrets (CRITICAL: Never commit .env!)
+.env
+.env.local
+
+# IDE & Editor files
+.vscode/
+.idea/
+.DS_Store
+*.log

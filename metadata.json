@@ -1,0 +1,6 @@
+{
+  "name": "Full-Stack Flask REST API & Client Architecture Hub",
+  "description": "Complete production-ready Flask REST API Backend (SQLite, JWT, SQLAlchemy) and Flask Client App (Bootstrap 5, centralized API helper, responsive UI) with full source code, architecture diagrams, live sandbox, and 12-step deployment guide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

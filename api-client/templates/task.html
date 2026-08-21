@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Task #{{ task.id }} - TaskFlow Pro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary btn-sm rounded-3">
+                <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+            </a>
+            <span class="badge bg-secondary-subtle text-secondary small">Task ID: #{{ task.id }}</span>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white mb-4">
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                    <h3 class="fw-bold text-dark mb-1">Edit Task / Note</h3>
+                    <p class="text-muted small mb-0">Modify task attributes and save directly to Project 1 REST API.</p>
+                </div>
+                <div>
+                    {% if task.status == 'completed' %}
+                        <span class="badge bg-success fs-6 rounded-pill px-3 py-2">
+                            <i class="bi bi-check-circle me-1"></i> Completed
+                        </span>
+                    {% elif task.status == 'in_progress' %}
+                        <span class="badge bg-info text-dark fs-6 rounded-pill px-3 py-2">
+                            <i class="bi bi-arrow-repeat me-1"></i> In Progress
+                        </span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark fs-6 rounded-pill px-3 py-2">
+                            <i class="bi bi-clock me-1"></i> Pending
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <form method="POST" action="{{ url_for('edit_task', task_id=task.id) }}">
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold text-secondary small">Task Title</label>
+                    <input type="text" class="form-control form-control-lg fs-5" id="title" name="title" value="{{ task.title }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-semibold text-secondary small">Description & Detailed Notes</label>
+                    <textarea class="form-control" id="description" name="description" rows="5" placeholder="Enter notes...">{{ task.description or '' }}</textarea>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="category" class="form-label fw-semibold text-secondary small">Category</label>
+                        <select class="form-select" id="category" name="category">
+                            {% for cat in ['General', 'Work', 'Personal', 'Study', 'Ideas', 'Urgent', 'Finance'] %}
+                                <option value="{{ cat }}" {% if task.category == cat %}selected{% endif %}>{{ cat }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="status" class="form-label fw-semibold text-secondary small">Status</label>
+                        <select class="form-select" id="status" name="status">
+                            <option value="pending" {% if task.status == 'pending' %}selected{% endif %}>Pending</option>
+                            <option value="in_progress" {% if task.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                            <option value="completed" {% if task.status == 'completed' %}selected{% endif %}>Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bg-light p-3 rounded-3 mb-4 small text-muted d-flex justify-content-between">
+                    <span><i class="bi bi-calendar-plus me-1"></i> Created: {{ task.created_at or 'N/A' }}</span>
+                    <span><i class="bi bi-clock-history me-1"></i> Last Updated: {{ task.updated_at or 'N/A' }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center border-top pt-4">
+                    <button type="button" class="btn btn-outline-danger rounded-3 px-3" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
+                        <i class="bi bi-trash me-1"></i> Delete Task
+                    </button>
+                    <div class="d-flex gap-2">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-light rounded-3 px-4">Cancel</a>
+                        <button type="submit" class="btn btn-primary rounded-3 px-4 text-white">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteTaskModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Delete Task
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-3">
+                Are you sure you want to permanently delete <strong>"{{ task.title }}"</strong>? This action cannot be reversed.
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-light rounded-3 px-3" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}">
+                    <button type="submit" class="btn btn-danger rounded-3 px-3">Confirm Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

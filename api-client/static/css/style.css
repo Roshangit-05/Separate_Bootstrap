@@ -1,0 +1,43 @@
+/* Custom UI refinements for TaskFlow Pro Bootstrap 5 Client */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1e293b;
+    background-color: #f8fafc;
+}
+
+.card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #818cf8;
+    box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.15);
+}
+
+.stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+}
